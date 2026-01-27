@@ -26,17 +26,44 @@ example : (¬ P) = (P → False) := by rfl
 
 
 
-example : ¬False := sorry
+example : ¬False := by
+intro h
+exact h
 
-example : ¬True → P := sorry
+example : ¬False := False.elim
 
-example : P → ¬ P → False := sorry
+example : ¬False := id
 
-example : ¬ P → P → False := sorry
+example : ¬True → P := by
+intro notTrue
+exfalso
+apply notTrue
+exact True.intro
 
-example : (P → Q) → (¬Q → ¬P) := sorry
+example : P → ¬ P → False := by
+ intro hp hnp
+ apply hnp
+ exact hp
 
-example : ¬(P → Q) → (¬Q) := sorry
+
+example : ¬ P → P → False := by
+intro notP hp
+apply notP
+apply hp
+
+
+example : (P → Q) → (¬Q → ¬P) := by
+intro q_of_p notQ hp
+apply notQ
+apply q_of_p
+exact hp
+done
+
+example : ¬(P → Q) → (¬Q) := by
+intro h hq
+apply h
+intro hp
+exact hq
 
 example : (P → Q) → ¬P → ((P → Q) → Q) → Q := sorry
 
@@ -59,10 +86,11 @@ example : P → ¬ ¬ P := by
   apply hp
 
 example : (P → Q) → ((¬ Q) → ¬ P) := by
- intro p_of_q nq p
- apply nq
- apply p_of_q
- apply p
+ intro q_of_p notQ
+ dsimp [Not]
+ dsimp [Not] at notQ
+ sorry
+ done
 
 -- ## Product Type: (and And)
 
@@ -80,7 +108,7 @@ variable (P Q : Prop)
 #check P∧Q -- This is a Prop
 
 example (hp:P) (hq:Q) : P∧Q :=  And.intro hp hq
-example (hp:P) (hq:Q) : P∧Q :=  ⟨hp,hq⟩
+example (hp:P) (hq:Q) : P∧Q :=  ⟨hp,hq⟩ -- NOte these angle brackets!
 example (hp:P) (hq:Q) : And.intro hp hq =  ⟨hp,hq⟩ := rfl
 example (hx:X) (hy:Y) : X×Y :=  (hx,hy)
 
@@ -168,7 +196,15 @@ z:A×B
 -- Make a table of corresponding rules for And
 
 
-theorem modusTollens : (P → Q) ∧ ¬Q → ¬ P := by sorry
+theorem modusTollens : (P → Q) ∧ ¬Q → ¬ P := by
+intro h hp
+apply h.right
+apply h.left
+exact hp
+done
+
+example:  (P → Q) ∧ ¬Q → ¬ P := by
+rintro ⟨h1,h2⟩
 
 example : (P ∧ Q) → P := sorry
 
@@ -179,6 +215,24 @@ example : (P ∧ Q) → (P ∧ (P ∧ Q)) := by
 
 example : R → (R ∧ R) := by
   sorry
+
+-- Equivalence as a pair
+-- `P ↔ Q` is really
+-- `P → Q` (modus ponens) and `Q → P` (modus ponens reversed)
+-- for `h : P ↔ Q` we have `h.mp : P → Q` and `h.mpr : Q → P`
+
+example : (P ↔ Q) ↔ (P → Q) ∧  (Q → P) := by
+constructor
+. intro h
+  constructor
+  exact h.mp
+  exact h.mpr
+. rintro ⟨ha,hb⟩
+  constructor
+  exact ha
+  exact hb
+
+#print Iff
 
 
 -- ## Law of Excluded Middle (LEM): P ∧ ¬ P
