@@ -67,15 +67,13 @@ example : (P ∨ Q) → (Q ∨ P) := sorry
 example : (P ∧ R) → (Q ∨ P) := sorry
 
 
-
-
-
-
 -- Equivalence as a pair:
 -- `P ↔ Q` is really `P → Q` and `Q → P` and
 -- for `h : P ↔ Q` we have `h.mp : P → Q` and `h.mpr : Q → P`
 
 example : (P ∨ Q) ↔ (Q ∨ P) := sorry
+
+example : (P ∨ Q) ∧ R ↔ (P ∧ R) ∨ (R ∧ Q) := sorry
 
 -- Let's explore proving the equivalence `P ∨ Q ∧ R ↔ (P ∨ Q) ∧ (P ∨ R)`
 --  first in human language, then in LEAN
