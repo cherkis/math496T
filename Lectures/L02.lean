@@ -1,4 +1,4 @@
-import Mathlib
+import MIL.Common
 
 /- # Lecture 2:
 
@@ -146,28 +146,6 @@ example : False → P := by
   apply False.elim
   apply h
 
-example : P → ¬ P → False := sorry
-
-example : ¬ P → P → False := sorry
-
 example : (P → Q) → (Q → R) → P → R := sorry
 
 example : (P → Q) → ((P → Q) → P) → Q := sorry
-
-
--- ## Negation: Not   ¬
-example : (¬ P) = (P → False) := by rfl
--- Not P means one can derive False from P.
--- This is the definition in Lean.
-
-example : ¬False := sorry
-
-example : ¬True → P := sorry
-
-example : (P → Q) → (¬Q → ¬P) := sorry
-
-example : ¬(P → Q) → (¬Q) := sorry
-
-example : (P → Q) → ¬P → ((P → Q) → Q) → Q := sorry
-
-example : (P → Q) → ¬Q → ((P → Q) → Q) → False := sorry
