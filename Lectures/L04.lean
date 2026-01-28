@@ -48,10 +48,12 @@ variable (P Q R : Prop)
 
 
 theorem elimination : (P ∨ Q) ∧ ¬ P → Q := by
-rintro ⟨hp | hq, np⟩
-contradiction
-exact hq
-done
+rintro ⟨(hp | hq), np⟩  -- Pattern matching
+.  exfalso
+   apply np
+   exact hp
+.  exact hq
+
 
 example : (P ∨ Q) ∧ ¬ P → (Q ∨ R) := by
 intro h
@@ -86,12 +88,13 @@ We need to prove both directions.
 ## (→) Left to Right: P ∨ (Q ∧ R) → (P ∨ Q) ∧ (P ∨ R)
 Assume P ∨ (Q ∧ R). We must show both (P ∨ Q) and (P ∨ R).
 
-Case 1: P holds.
+. Case 1: P holds.
 
 Then P ∨ Q holds (by left disjunct).
 And P ∨ R holds (by left disjunct).
 So (P ∨ Q) ∧ (P ∨ R) holds.
-Case 2: Q ∧ R holds.
+
+. Case 2: Q ∧ R holds.
 
 Then Q holds, so P ∨ Q holds (by right disjunct).
 And R holds, so P ∨ R holds (by right disjunct).
@@ -100,10 +103,11 @@ So (P ∨ Q) ∧ (P ∨ R) holds.
 ## (←) Right to Left: (P ∨ Q) ∧ (P ∨ R) → P ∨ (Q ∧ R)
 Assume (P ∨ Q) ∧ (P ∨ R). We must show P ∨ (Q ∧ R).
 
-Case 1: P holds.
+. Case 1: P holds.
 
 Then P ∨ (Q ∧ R) holds immediately (by left disjunct).
-Case 2: P does not hold.
+
+. Case 2: P does not hold.
 
 From P ∨ Q and ¬P, we conclude Q must hold.
 From P ∨ R and ¬P, we conclude R must hold.
