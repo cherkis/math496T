@@ -39,6 +39,7 @@
     "lean4.infoview.showExpectedType": false,
     "cSpell.words": [
         "done",
+        "exfalso",
         "rintro"
     ]
 }
