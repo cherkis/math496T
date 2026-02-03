@@ -1,6 +1,7 @@
 import MIL.Common
 
-/-
+/- # Lecture 5
+
 Proposition/Hypothesis     Implication:  Conjunction               Disjunction                  Equivalence
 Formation                  `P → Q`        `P ∧ Q`                    `P ∨ Q`                     `P ↔ Q`
 

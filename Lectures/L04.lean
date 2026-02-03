@@ -346,10 +346,52 @@ done
 
 -- Try proving these examples:
 -- Feel free to use `by_cases` and `have`
-example : ( P → Q ) ↔ (¬ P ∨ Q) := sorry
+example : ( P → Q ) ↔ (¬ P ∨ Q) := by
+-- To prove if and only if we first prove
+constructor
+-- if (right implication)
+. intro h
+-- Suppose (P → Q), then we need to show ¬ P ∨ Q
+-- consider two cases: Q is true or Q is not true.
+  by_cases hh : Q
+  -- if Q holds
+  . right
+  -- then the right side of the disnjunction holds
+    apply hh
+  -- if Q does not hold, then we are going to prove ¬ P
+  left
+  -- suppose the opposite: that P holds
+  intro hp
+  -- If Q holds then I have a contradiction
+  apply hh
+  -- and Q follows from P, and we assumed P, thus coming to a contradiction.
+  apply h
+  exact hp
+  -- Therefore P does not hold.
+. rintro (np | hq)
+  . intro hp
+    contradiction
+  . intro hp1
+    exact hq
 
 
-example : ¬ ( P ∨ Q) ↔ ¬ P ∧ ¬ Q := sorry
+example : ¬ ( P ∨ Q) ↔ ¬ P ∧ ¬ Q := by
+constructor
+. rintro h
+  constructor
+  . intro hp
+    apply h
+    left
+    exact hp
+  . intro hq
+    apply h
+    right
+    exact hq
+. intro ⟨hp,hq⟩
+  intro h
+  rcases h with (h1 | h2)
+  . contradiction
+  . contradiction
 
 
 example : ( P → Q) ↔ ( P ∧ ¬ Q) → (Q ∧ ¬ Q) := sorry
