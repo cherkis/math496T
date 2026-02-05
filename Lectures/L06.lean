@@ -111,6 +111,6 @@ example : ∀ x : ℝ, ∃ y, x = y + 5 := sorry
 example : ¬ ∀ x : ℕ, ∃ y, x = y+5 := sorry
 
 -- State and then prove or disprove the following statements:
--- "All integers are not odd" and "Not all integers are odd"
+-- `"All integers are not odd"` and `"Not all integers are odd"`
 
--- Again, completing the even analogue of this exercise requires more tools.
+-- Again, completing the `even` analogue of this exercise requires more tools.
