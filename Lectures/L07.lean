@@ -72,3 +72,33 @@ theorem myAdd_assoc (n m k : myNat) : myAdd n (myAdd m k) = myAdd (myAdd n m) k 
   · rfl
   . rw [succ_myAdd,succ_myAdd,succ_myAdd]
     rw [ih]
+
+
+
+
+-- ## Multiplication
+
+def myMul : myNat → myNat → myNat
+  | zero, m => zero
+  | succ n, m => myAdd m (myMul n m)
+
+theorem myMul_zero (n : myNat) : myMul zero n = zero := by
+  rfl
+
+theorem zero_myMul (n : myNat) : myMul n zero = zero := by
+  sorry
+
+theorem succ_myMul (n m : myNat) : myMul (succ n) m = myAdd m (myMul n m) := by
+  sorry
+
+theorem myMul_comm (n m : myNat) : myMul n m = myMul m n := by
+  sorry
+
+theorem myNat.mul_add (n m k : myNat) : myMul n (myAdd m k) = myAdd (myMul n m) (myMul n k) := by
+  sorry
+
+theorem myNat.add_mul (n m k : myNat) : myMul (myAdd n m) k = myAdd (myMul n k) (myMul m k) := by
+  sorry
+
+theorem myMul_assoc (n m k : myNat) : myMul n (myMul m k) = myMul (myMul n m) k := by
+  sorry
