@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.27)  15 MAR 2026 23:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.27)  15 MAR 2026 23:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -221,7 +221,8 @@ If that doesn't work, type  X <return>  to quit.
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count295
 \l__pdf_internal_box=\box58
-) (./written_proof.aux)
+)
+No file written_proof.aux.
 \openout1 = `written_proof.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
@@ -238,7 +239,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
 LaTeX Font Info:    ... okay on input line 25.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
 LaTeX Font Info:    ... okay on input line 25.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -304,10 +304,10 @@ L3 programming layer <2024-12-25>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5087 strings out of 473207
- 67526 string characters out of 5720461
- 534321 words of memory out of 5000000
- 28269 multiletter control sequences out of 15000+600000
+ 5084 strings out of 473207
+ 67460 string characters out of 5720461
+ 534330 words of memory out of 5000000
+ 28268 multiletter control sequences out of 15000+600000
  567072 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,8n,65p,3301b,233s stack positions out of 10000i,1000n,20000p,200000b,200000s

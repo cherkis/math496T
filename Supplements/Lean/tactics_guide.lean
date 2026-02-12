@@ -81,6 +81,7 @@ example {P Q : Prop} (h : P → Q) (hp : P) : Q := by
 
 `dsimp` unpacks the definitions of terms
 -/
+<<<<<<< HEAD
 
 /-
 ~~ constructor ~~
@@ -147,3 +148,5 @@ example {P Q : Prop} (h : P → Q) (hp : P) : Q := by
 
 
 -/
+=======
+>>>>>>> 8f12f1d (Creates Lean folder in Supplements and populates)

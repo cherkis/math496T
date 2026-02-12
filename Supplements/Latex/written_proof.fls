@@ -82,9 +82,6 @@ INPUT c:/texlive/2024/texmf-dist/tex/generic/xypic/xypdf-li.tex
 INPUT c:/texlive/2024/texmf-dist/tex/generic/xypic/xypdf-ro.tex
 INPUT c:/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT c:/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-INPUT ./written_proof.aux
-INPUT ./written_proof.aux
-INPUT written_proof.aux
 OUTPUT written_proof.aux
 INPUT c:/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
 INPUT c:/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
