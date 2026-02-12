@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[all]{xy}
+  \SelectTips{cm}{10}
+  \everyxy={<2.5em,0em>:}
+\DeclareMathOperator{\Ima}{Im}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\lean}[1]{\texttt{#1}}
+
+\newenvironment{ex}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\newenvironment{sol}[1][Solution]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1:}]}{\end{trivlist}}
+
+
+\begin{document}
+
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+\begin{ex}{1} [Problem 9 from HW01.lean]
+
+    Show that there exists a proposition $Q$ such that for any proposition $P$, then
+    $P\vee Q$ is true if and only if $P$ is true.
+
+\end{ex}
+
+
+\begin{proof}
+
+    I claim that the proposition \lean{False} satisfies this property. Let $P$ be an arbitrary
+    proposition. Consider the proposition $P\vee\lean{False}$. Now we will explore the truth table
+    verbally: if $P$ is true, then $P\vee\lean{False}$ is true; if $P$ is false, then
+    $P\vee\lean{False}$ is false. Therefore $P\vee\lean{False}$ is true only when $P$ is true,
+    so $P\vee\lean{False}$ implies $P$. Conversely, $P$ implies $P\vee\lean{False}$ by the definition
+    of the logical connective "or." At last, we have proven implication both ways, therefore
+    $P\vee\lean{False}$ is true if and only if $P$ is true. Since \lean{False} satisfies the desired
+    property for the arbitrarily chosen proposition $P$, then \lean{False} satisfies the general
+    property described of $Q$, so such a proposition $Q$ does exist.
+
+\end{proof}
+
+
+
+
+
+
+\end{document}
