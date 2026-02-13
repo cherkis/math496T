@@ -81,3 +81,69 @@ example {P Q : Prop} (h : P → Q) (hp : P) : Q := by
 
 `dsimp` unpacks the definitions of terms
 -/
+
+/-
+~~ constructor ~~
+
+
+-/
+
+/-
+~~ rintro ~~
+
+
+-/
+
+/-
+~~ left ~~
+
+
+-/
+
+/-
+~~ right ~~
+
+
+-/
+
+/-
+~~ obtain ~~
+
+
+-/
+
+/-
+~~ have ~~
+
+
+-/
+
+/-
+~~ by_cases ~~
+
+
+-/
+
+/-
+~~ rcases ~~
+
+
+-/
+
+/-
+~~ cases ~~
+
+
+-/
+
+/-
+~~ rfl ~~
+
+
+-/
+
+/-
+~~ induction' ~~
+
+
+-/
