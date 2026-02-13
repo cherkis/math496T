@@ -1,5 +1,5 @@
 -- import AutograderLib
-import Mathlib.Tactic.Basic
+import Mathlib.Tactic
 
 /-! # Homework 2: Mathematical Induction
 Playing with __addition__ on our natural numbers.
