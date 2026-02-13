@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1773641990.31464 "c:/Users/Owner/lean-projects/math496T/Supplements/Latex/written_proof.tex" "written_proof.pdf" "written_proof" 1773641992.13621 2
-  "c:/Users/Owner/lean-projects/math496T/Supplements/Latex/written_proof.tex" 1773641916 16733 4063f1f8c612ee0ad499291c16bf1317 ""
+["pdflatex"] 1773690722.78333 "c:/Users/Owner/lean-projects/math496T/Supplements/Latex/written_proof.tex" "written_proof.pdf" "written_proof" 1773690724.06162 0
+  "c:/Users/Owner/lean-projects/math496T/Supplements/Latex/written_proof.tex" 1773690720 16303 771ce38ffc360bfdd3b366788413087f ""
   "c:/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1738004608 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1738008729 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1738005750 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -91,8 +91,8 @@
   "c:/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1738024576 5512124 2cf941ede77dae451992032562f7b65f ""
   "c:/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1738024842 3352056 f989ca6cb73b9649016d42a992c83837 ""
   "c:/texlive/2024/texmf.cnf" 1738024533 713 e69b156964470283e0530f5060668171 ""
-  "written_proof.aux" 1773641991 32 2d1df76398b3c48c6419a45a7331db2d "pdflatex"
-  "written_proof.tex" 1773641916 16733 4063f1f8c612ee0ad499291c16bf1317 ""
+  "written_proof.aux" 1773690723 32 77e0dffd05b653a64f0caf3eb9bb454a "pdflatex"
+  "written_proof.tex" 1773690720 16303 771ce38ffc360bfdd3b366788413087f ""
   (generated)
   "written_proof.aux"
   "written_proof.log"
