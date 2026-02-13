@@ -25,7 +25,7 @@
 
 \begin{ex}{1} [Problem 9 from HW01.lean]
 
-    Show that there exists a proposition $Q$ such that for any proposition $P$, then
+    Show that there exists a proposition $Q$ such that for any proposition $P$, we have that
     $P\vee Q$ is true if and only if $P$ is true.
 
 \end{ex}
@@ -45,9 +45,30 @@
 
 \end{proof}
 
+\begin{ex}{2} [Infinitely many primes]
+
+    Recall that a natural number $p$ is called "prime" if and only if the only natural numbers
+    dividing $p$ are $1$ and $p$ itself. 1 is not considered prime, since it has only 1 distinct
+    factor.
+    There are infinitely many natural numbers which are prime.
+
+\end{ex}
+
+\begin{proof}{} [Due to Euclid, with some tweaks]
+
+    We will prove the claim by way of contradiction. Suppose there are finitely many prime
+    numbers. Let $S$ denote that finite set of prime numbers. Now we construct a natural number
+    $N$, defined as the product of all the elements in $S$, i.e. $N:=\Pi_{p\in S}p$.
+    By construction, every prime number divides $N$. Since we know 1 has only itself as
+    a divisor, then every prime number does not divide 1. Let $p$ be a prime number.
+    Then $p\mid N$ and $p\nmid 1$, thus $p\nmid (N+1)$. Therefore $N+1$ has no prime divisors.
+    By theorem, the only natural number with no prime divisors is 1, so $N+1=1$. 1 is the smallest
+    natural number, so $N\ge1$, thus $N+1>1$. Then through substitution we have that $1>1$,
+    which is plainly a contradiction. Since we have arrived at a contradiction, our most recent
+    assumption---that there are finitely many primes---is false. Hence there are infinitely
+    many natural numbers which are prime.
 
 
-
-
+\end{proof}
 
 \end{document}
