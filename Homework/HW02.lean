@@ -39,6 +39,7 @@ def addLeft' : myNat → myNat → myNat
    You will need to use induction on n, and the theorems we proved above.
    Be careful with your quantifiers.
 -/
+@[autogradedProof 20]
 theorem problem1 : ∀ n m : myNat, addLeft n m = addLeft' n m := by
   sorry
 
@@ -50,6 +51,7 @@ def addRight : myNat → myNat → myNat
 
 -- Prove that it is equivalent to the previous two additions:
 -- First change the order of quantifiers to make it easier to prove:
+@[autogradedProof 10]
 theorem problem2 : (∀ n m : myNat, addLeft n m = addRight n m) ↔ (∀ m n : myNat, addLeft n m = addRight n m) := by
   sorry
 
@@ -60,5 +62,6 @@ theorem zero_addLeft (n : myNat) : addLeft n zero = n := by
   . rw [addLeft]
     rw [ih]
 
+@[autogradedProof 20]
 theorem problem3 : ∀ m n : myNat, addLeft n m = addRight n m := by
   sorry

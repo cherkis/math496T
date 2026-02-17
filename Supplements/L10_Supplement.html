@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+<link rel="stylesheet" href="file:////Users/cherkis/.vscode/extensions/goessner.mdmath-2.7.4/themes/default/style.css">
+
+</head>
+<body class="markdown-body">
+<h1 dir="auto" id="l10-supplement">L10 Supplement</h1>
+<h2 dir="auto" id="1-sets-some-useful-theorems">1. Sets: Some useful theorems</h2>
+<table dir="auto">
+<thead dir="auto">
+<tr dir="auto">
+<th>Check</th>
+<th>Short definition</th>
+</tr>
+</thead>
+<tbody dir="auto">
+<tr dir="auto">
+<td><code>Set</code></td>
+<td><code>Set α</code> is the type of predicates <code>α → Prop</code>.</td>
+</tr>
+<tr dir="auto">
+<td><code>@Set.mem_def</code></td>
+<td><code>x ∈ s</code> means <code>s x</code>.</td>
+</tr>
+<tr dir="auto">
+<td><code>@Set.subset_def</code></td>
+<td><code>s ⊆ t</code> means every element of <code>s</code> is in <code>t</code>.</td>
+</tr>
+<tr dir="auto">
+<td><code>@Set.mem_inter_iff</code></td>
+<td><code>x ∈ s ∩ t ↔ x ∈ s ∧ x ∈ t</code>.</td>
+</tr>
+<tr dir="auto">
+<td><code>@Set.mem_union</code></td>
+<td><code>x ∈ s ∪ t ↔ x ∈ s ∨ x ∈ t</code>.</td>
+</tr>
+<tr dir="auto">
+<td><code>@Set.mem_compl_iff</code></td>
+<td><code>x ∈ sᶜ ↔ x ∉ s</code>.</td>
+</tr>
+<tr dir="auto">
+<td><code>@Set.mem_diff</code></td>
+<td><code>x ∈ s \ t ↔ x ∈ s ∧ x ∉ t</code>.</td>
+</tr>
+<tr dir="auto">
+<td><code>@Set.mem_empty_iff_false</code></td>
+<td><code>x ∈ ∅ ↔ False</code>.</td>
+</tr>
+<tr dir="auto">
+<td><code>@Set.mem_univ</code></td>
+<td><code>x ∈ Set.univ ↔ True</code>.</td>
+</tr>
+<tr dir="auto">
+<td><code>@Set.ext_iff</code></td>
+<td><code>s = t ↔ ∀ x, x ∈ s ↔ x ∈ t</code>.</td>
+</tr>
+<tr dir="auto">
+<td><code>@Set.mem_setOf_eq</code></td>
+<td>Membership in <code>{x | p x}</code> is exactly <code>p x</code>.</td>
+</tr>
+<tr dir="auto">
+<td><code>Nat.even_or_odd</code></td>
+<td>Every natural number is even or odd.</td>
+</tr>
+</tbody>
+</table>
+<h2 dir="auto" id="2-new-tactics-and-their-meaning">2. New tactics and their meaning</h2>
+<table dir="auto">
+<thead dir="auto">
+<tr dir="auto">
+<th>Tactic</th>
+<th>Use syntax</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody dir="auto">
+<tr dir="auto">
+<td><code>ext</code></td>
+<td><code>ext x</code></td>
+<td>Uses extensionality to reduce equality of sets/functions to pointwise statements.</td>
+</tr>
+<tr dir="auto">
+<td><code>show</code></td>
+<td><code>show &lt;goal&gt;</code></td>
+<td>Re-states the current goal in a clearer equivalent form.</td>
+</tr>
+<tr dir="auto">
+<td><code>change</code></td>
+<td><code>change &lt;new_goal&gt;</code></td>
+<td>Replaces the goal with a definitionally equal goal.</td>
+</tr>
+<tr dir="auto">
+<td><code>have</code></td>
+<td><code>have h : P := proof</code></td>
+<td>Introduces an intermediate claim/fact into the local context.</td>
+</tr>
+<tr dir="auto">
+<td><code>suffices</code></td>
+<td><code>suffices h : P by ...</code></td>
+<td>Changes the target to a sufficient intermediate goal; proving it finishes the original goal.</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

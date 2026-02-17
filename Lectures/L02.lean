@@ -149,3 +149,8 @@ example : False → P := by
 example : (P → Q) → (Q → R) → P → R := sorry
 
 example : (P → Q) → ((P → Q) → P) → Q := sorry
+
+example : ∀ (P Q : Prop), (P → Q) ∨ (Q → P) := by sorry
+
+example : (P → Q) ↔ (¬ P ∨ Q) := by
+sorry
