@@ -176,7 +176,7 @@ example : (5 : ℕ) ∈ { n : ℕ | 2 ∣ n + 1} := by
   change 2 ∣ 5 + 1
   norm_num
 
--- Recall `dsimp` from Lecture 3: it performs definitional simplification.
+-- Recall `simp only` from Lecture 3: can perform simplification using only a specified list of rules or definitions or equivalences.
 -- It can unfold set membership automatically:
 example (x : α) (hA : x ∈ A) (hB : x ∈ B) : x ∈ A ∩ B := by
   simp only [Set.mem_inter_iff]   -- unfolds ∩ to ∧
@@ -262,8 +262,6 @@ example : A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C) := by
 example : Aᶜᶜ = A := by
   ext x
   simp [Set.mem_compl_iff]
-  -- This reduces to: ¬¬(x ∈ A) ↔ x ∈ A
-  tauto
 
 
 -- ============================================================================
