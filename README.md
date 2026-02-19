@@ -1,4 +1,4 @@
-# Computer Verification of Mathematical Proofs: Math486T  (Spring 2026)
+# Computer Verification of Mathematical Proofs: Math496T  (Spring 2026)
 
 This course is based on Mathematics in Lean (MIL) tutorial, which depends on Lean 4, VS Code, and Mathlib.
 You can find the original MIL textbook both online and in this repository
@@ -7,7 +7,7 @@ in
 or as a
 [pdf document](https://leanprover-community.github.io/mathematics_in_lean/mathematics_in_lean.pdf).
 
-Please make a copy of this math486T repository on your computer.
+Please make a copy of this math496T repository on your computer.
 <!-- Alternatively, you can use Github Codespaces or Gitpod to run Lean and VS Code in the cloud. -->
 
 This version of *Math496T* is designed for [Lean 4](https://leanprover.github.io/) and
