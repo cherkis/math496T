@@ -40,24 +40,24 @@ Do the following:
 
    If you launched VS Code from a menu, on the main screen, or in the File menu, click "Open folder" (just "Open" on a Mac), and choose the folder `math496T` (not one of its subfolders).
 
-   Using the file explorer on the left-hand side, explore and modify everything you want in `My_MIL`. 
+   Using the file explorer on the left-hand side, explore and modify everything you want in `My_MIL`.
 
-   [This step is similar to following these [instructions](https://leanprover-community.github.io/install/project.html#working-on-an-existing-project), but with 
-`https://github.com/cherkis/math496T` and `math496T` in place of 
+   [This step is similar to following these [instructions](https://leanprover-community.github.io/install/project.html#working-on-an-existing-project), but with
+`https://github.com/cherkis/math496T` and `math496T` in place of
 `https://github.com/leanprover-community/mathematics_in_lean.git` and `mathematics_in_lean`
  ]
 to fetch the `math496T` repository and open it up in VS Code.
 
-4. Lectures will be posted in `Lectures` folder and homework assignments will appear in `Homework` folder. 
+4. Lectures will be posted in `Lectures` folder and homework assignments will appear in `Homework` folder.
    If you want to move ahead, you can always work on `My_MIL` folder. Each section in the MIL  textbook has an associated Lean file with examples and exercises in `My_MIL` folder, organized by chapter.
    Please do _not_ _modify_ the originals `MIL` folder. It easier to update the repository as it changes (see below).
-   Feel free to modify or add your own files to `My_MIL` as you like. We suggest you do all your work only in that folder. 
+   Feel free to modify or add your own files to `My_MIL` as you like. We suggest you do all your work only in that folder.
 
 At any point, you can open MIL textbook in a web browser
 at [https://leanprover-community.github.io/mathematics_in_lean/](https://leanprover-community.github.io/mathematics_in_lean/)
 and start reading and doing the exercises in VS Code.
 
-This project and this repository will be regularly updated. 
+This project and this repository will be regularly updated.
 You can update the repository by typing `git pull`
 followed by `lake exe cache get` inside the `mathematics_in_lean` folder.
 (This assumes that you have not changed the contents of the `MIL`, `Lectures`, or `Homework`  folders,
@@ -82,7 +82,7 @@ and installs Lean and Mathlib.
 Opening any `.lean` file in the MIL folder will start Lean,
 though this may also take a little while.
 We suggest copy `MIL` file as `My_MIL` and work `My_MIL` directory, as described
-in the instructions above. 
+in the instructions above.
 You can update the repository by opening a terminal in the browser
 and typing `git pull` followed by `lake exe cache get` as above.
 
