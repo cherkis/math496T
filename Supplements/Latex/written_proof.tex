@@ -8,6 +8,8 @@
 \DeclareMathOperator{\Ima}{Im}
 
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Pset}[1]{\mathcal{P}(#1)}
 \newcommand{\lean}[1]{\texttt{#1}}
 
 \newenvironment{ex}[2][Problem]{\begin{trivlist}
@@ -68,6 +70,121 @@
     assumption---that there are finitely many primes---is false. Hence there are infinitely
     many natural numbers which are prime.
 
+
+\end{proof}
+
+The next 10 problems (3-12) are about relations, using the following definitions:
+\begin{itemize}
+    \item A relation $R\subseteq S\times S$ on a set $S$ is reflexive iff
+        for every $x\in S$, we have that $(x,x)\in R$.
+    \item A relation $R\subseteq S\times S$ on a set $S$ is symmetric iff
+        for every $(x,y)\in S\times S$,
+            we have that $(x,y)\in R$ implies $(y,x)\in R$.
+    \item A relation $R\subseteq S\times S$ on a set $S$ is transitive iff
+        for every $(x,y,z)\in S\times S\times S$, we have that
+            $(x,y)\in R$ and $(y,z)\in R$ implies that $(x,z)\in R$.
+    \item A relation $R\subseteq S\times S$ on a set $S$ is called an
+        equivalence relation iff $R$ is reflexive, symmetric, and transitive.
+    \item A relation $R\subseteq S\times S$ on a set $S$ is \textbf{anti}symmetric
+        iff for every $(x,y)\in S\times S$, we have that
+            $(x,y)\in R$ and $(y,x)\in R$ implies that $x = y$.
+    \item A partition of a set $S$ is a collection $P$ of subsets of $S$ such that
+        distinct sets in $P$ are disjoint and the union of all sets in $P$ is $S$.
+
+\end{itemize}
+
+\begin{ex}{3} [Equiv defines a partition]
+    Let $S$ be a set and $R\subseteq S\times S$ an equivalence relation. For
+    each $x\in S$, define $[x] := \{y\in S \;|\; (x,y)\in R\}$.
+    Show that $P := \{[x]\subset S \;|\; x \in S \}$ is a partition of $S$.
+\end{ex}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{ex}{4} [Subset is transitive and antisymmetric]
+    Let $X$ be a nonempty set and let $\Pset{X}$ be the collection of all
+    subsets of $X$. Let $R := \{(S,T)\in\Pset{X}\times\Pset{X} \;|\; S \subseteq T\}$.
+    Show that $R$ is reflexive, antisymmetric, and transitive.
+\end{ex}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{ex}{5} [Sequences being eventually equal is an equivalence relation]
+    For two sequences of natural numbers $a, b : \N\to\N$, we say $a\sim b$ iff
+    $\exists N \in \N$ such that $\forall n \in N$, $n\ge N$ implies $a_n = b_n$.
+    Show that $\sim$ is an equivalence relation.
+\end{ex}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{ex}{6} [+R+S-T]
+    There exists a relation which is reflexive and symmetric, but not transitive.
+\end{ex}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{ex}{7} [+R-S+T]
+    There exists a relation which is reflexive and transitive, but not symmetric.
+\end{ex}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{ex}{8} [+R-S-T]
+    There exists a relation which is reflexive, but neither symmetric nor transitive.
+\end{ex}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{ex}{9} [-R+S+T]
+    There exists a relation which is transitive and symmetric, but not reflexive.
+\end{ex}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{ex}{10} [-R+S-T]
+    There exists a relation which is symmetric, but neither reflexive nor transitive.
+\end{ex}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{ex}{11} [-R-S+T]
+    There exists a relation which is transitive, but neither symmetric nor reflexive.
+\end{ex}
+
+\begin{proof}
+
+\end{proof}
+
+
+\begin{ex}{12} [-R-S-T]
+    There exists a relation which is not reflexive, not symmetric, and not transitive.
+\end{ex}
+
+\begin{proof}
 
 \end{proof}
 
