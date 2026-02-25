@@ -329,14 +329,23 @@ The next 10 problems (3-12) are about relations, using the following definitions
 \end{proof}
 
 
-\begin{ex}{4} [Subset is transitive and antisymmetric]
+\begin{ex}{4} [Subset]
     Let $X$ be a nonempty set and let $\Pset{X}$ be the collection of all
     subsets of $X$. Let $R := \{(S,T)\in\Pset{X}\times\Pset{X} \;|\; S \subseteq T\}$.
     Show that $R$ is reflexive, antisymmetric, and transitive.
 \end{ex}
 
-\begin{proof}
-
+\begin{proof} $ $
+\begin{itemize}
+    \item Let $S\in\Pset{X}$. Clearly $S\subseteq S$, so $(S, S)\in R$. Thus $R$ is reflexive.
+    \item Let $S, T\in\Pset{X}$ such that $(S, T)\in R$ and
+        $(T, S)\in R$. Then $S\subseteq T$ and $T\subseteq S$, so it follows that $S=T$. Thus $R$ is antisymmetric.
+    \item Let $S, T, U\in\Pset{X}$ such that $(S, T)\in R$ and
+        $(T, U)\in R$. Then $S\subseteq T$ and $T\subseteq U$, so
+        $\forall x \in S, x\in T$ and $\forall y \in T, y\in U$.
+        Therefore $\forall x \in S, x\in U$, so $S\subseteq U$, hence $(S, U)\in R$.
+        Thus $R$ is transitive.
+\end{itemize}
 \end{proof}
 
 
@@ -346,8 +355,25 @@ The next 10 problems (3-12) are about relations, using the following definitions
     Show that $\sim$ is an equivalence relation.
 \end{ex}
 
-\begin{proof}
+\begin{proof} $ $
+    \begin{itemize}
+        \item Let $a:\N\to\N$ be an arbitrary sequence. Then $a\sim a$, since
+            every $n\in\N$ satisfies that $a_n=a_n$. Thus $\sim$ is reflexive.
+        \item Let $a, b:\N\to\N$ such that $a\sim b$. Let $N\in\N$ be chosen
+            such that for every natural number $n$ greater than $N$, we have
+            that $a_n=b_n$. Then necessarily $b_n=a_n$ because equality is symmetric.
+            Thus $\sim$ is symmetric.
+        \item Let $a, b, c:\N\to\N$ such that $a\sim b$ and $b\sim c$. Choose
+            $N_1, N_2\in\N$ such that $\forall n\ge N_1, a_n=b_n$ and
+            $\forall n\ge N_2, b_n=c_n$. Then define $N:=\max\{N_1,N_2\}$
+            and let $n\in\N$ such that $n\ge N$. For such $n$, we have that
+            $a_n=b_n$ and $b_n=c_n$, so $a_n=c_n$. Note that we have satisfied the exact
+            conditions to claim that $a\sim c$, thus $\sim$ is transitive.
 
+    \end{itemize}
+
+    Since $\sim$ is reflexive, symmetric, and transitive, we have that $\sim$ is an
+    equivalence relation.
 \end{proof}
 
 
@@ -356,7 +382,15 @@ The next 10 problems (3-12) are about relations, using the following definitions
 \end{ex}
 
 \begin{proof}
+    Choose $S:=\Z$ and $R:=\{(a, b)\in\Z\times\Z \;:\; |a-b|<2\}$.
 
+
+    Clearly $R$ is reflexive, since $|a-a| = 0 < 2$ for any $a\in\Z$.
+    We see also that $R$ is symmetric because $|a-b|=|b-a|$ for all $a, b\in\Z$.
+    Now we need to show only that $R$ is not transitive. Namely,
+    we will demonstrate that $(1, 0)\in R$ and $(0, -1)\in R$, but $(1, -1)\notin R$.
+    Simply put, $|1-0|=1<2$ and $|0-(-1)| = 1 < 2$, but $|1-(-1)|=2\not<2$.
+    Thus $R$ is not transitive.
 \end{proof}
 
 
@@ -365,7 +399,13 @@ The next 10 problems (3-12) are about relations, using the following definitions
 \end{ex}
 
 \begin{proof}
+    Let $X$ be a nonempty set and choose $S:=\Pset{X}$ and $R$ the subset relation
+    defined in problem 4.
 
+    We have already shown that $R$ as defined is reflexive and transitive.
+    Now consider $\emptyset\in S$ and $X\in S$. Since $X$ is nonempty, we have
+    that $\emptyset\subseteq X$ and $X\not\subseteq\emptyset$, so $R$ is not
+    symmetric.
 \end{proof}
 
 
@@ -374,7 +414,14 @@ The next 10 problems (3-12) are about relations, using the following definitions
 \end{ex}
 
 \begin{proof}
+    Choose $S:=\Z$ and $R:=\{(a, b)\in\Z\times\Z \;|\; a-b<2\}$.
 
+    Clearly $R$ is reflexive, since $a-a=0<2$ for all $a\in Z$. To show that
+    $R$ violates symmetry and transitivity, consider $(2, 1), (2, 0), (1, 0),$ and $(0,2)$.
+
+    $R$ is not symmetric because $(0, 2)\in R$ but $(2, 0)\notin R$.
+
+    $R$ is not transitive because $(2, 1)\in R$ and $(1, 0)\in R$ but $(2, 0)\notin R$.
 \end{proof}
 
 
@@ -383,6 +430,14 @@ The next 10 problems (3-12) are about relations, using the following definitions
 \end{ex}
 
 \begin{proof}
+    Choose $S:=\N$ and $R:=\emptyset$.
+
+    $R$ is clearly not reflexive, since $(1, 1)\notin R$.
+    However, it's vacuously true that $R$ is symmetric and transitive.
+
+    Let $a, b, c\in S$. If we suppose that $(a, b)\in R$, then any proposition
+    follows from the principle of explosion. Thus the criteria for both
+    symmetry and transitivity of $R$ are satisfied.
 
 \end{proof}
 
@@ -392,7 +447,15 @@ The next 10 problems (3-12) are about relations, using the following definitions
 \end{ex}
 
 \begin{proof}
+    Choose $S:=\Z$ and $R:=\{(a,b)\in\Z\times\Z \;:\; |a-b| > 2\}$.
 
+    We see immediately that $R$ is symmetric because $|a-b|=|b-a|$ for all
+    $a, b\in\Z$. We can also see immediately that $R$ is not reflexive because
+    $|0-0|=0\not>2$, thus $(0, 0)\notin R$.
+
+    We have that $(0,5)\in R$ because $|0-5|=5>2$, and symmetry establishes that
+    $(5, 0)\in R$ as well. If $R$ were transitive, then $(0, 0)\in R$, but we've already
+    established that's false, so $R$ is not transitive.
 \end{proof}
 
 
@@ -401,7 +464,17 @@ The next 10 problems (3-12) are about relations, using the following definitions
 \end{ex}
 
 \begin{proof}
+    Choose $S:=\Z$ and $R:=\{(a,b)\in\Z\times\Z\;|\;b-a>0\}$.
 
+    \begin{itemize}
+        \item Let $a, b, c\in S$ such that $(a, b)\in R$ and $(b, c)\in R$.
+            Then $b-a$ is positive and $c-b$ is positive. Therefore their sum,
+            $b-a+c-b=c-a$ is positive, hence $(a, c)\in R$. Thus $R$ is transitive.
+        \item Observe that $(0, 1)\in R$ because $1-0=1>0$ and $(1, 0)\notin R$
+            because $0-1=-1\not>0$. Thus $R$ is not symmetric.
+        \item Observe that $(0, 0)\notin R$ because $0-0=0\not>0$. Thus
+            $R$ is not reflexive.
+    \end{itemize}
 \end{proof}
 
 
@@ -410,7 +483,13 @@ The next 10 problems (3-12) are about relations, using the following definitions
 \end{ex}
 
 \begin{proof}
-
+    Choose $S:=\N$ and $R:=\{(1, 2),(2, 3)\}$.
+    \begin{itemize}
+        \item $R$ is not reflexive because $(1, 1)\notin R$.
+        \item $R$ is not symmetric because $(1, 2)\in R$ but $(2, 1)\notin R$.
+        \item $R$ is not transitive because
+            $(1, 2)\in R$ and $(2, 3)\in R$ but $(1, 3)\notin R$.
+    \end{itemize}
 \end{proof}
 
 \end{document}
