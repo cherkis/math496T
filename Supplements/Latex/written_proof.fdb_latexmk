@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1773690781.6462 "c:/Users/Owner/lean-projects/math496T/Supplements/Latex/written_proof.tex" "written_proof.pdf" "written_proof" 1773690782.76181 0
+["pdflatex"] 1773690796.61301 "c:/Users/Owner/lean-projects/math496T/Supplements/Latex/written_proof.tex" "written_proof.pdf" "written_proof" 1773690797.78715 0
   "c:/Users/Owner/lean-projects/math496T/Supplements/Latex/written_proof.tex" 1773690780 21029 8fc454c72055ac1b1eec2f5dbe3b5874 ""
   "c:/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1738004608 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1738008729 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -91,7 +91,7 @@
   "c:/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1738024576 5512124 2cf941ede77dae451992032562f7b65f ""
   "c:/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1738024842 3352056 f989ca6cb73b9649016d42a992c83837 ""
   "c:/texlive/2024/texmf.cnf" 1738024533 713 e69b156964470283e0530f5060668171 ""
-  "written_proof.aux" 1773690782 32 4d1825978335c8847f72f7c473f9edc8 "pdflatex"
+  "written_proof.aux" 1773690797 32 4d1825978335c8847f72f7c473f9edc8 "pdflatex"
   "written_proof.tex" 1773690780 21029 8fc454c72055ac1b1eec2f5dbe3b5874 ""
   (generated)
   "written_proof.aux"
