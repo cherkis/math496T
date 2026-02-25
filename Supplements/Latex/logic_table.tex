@@ -1,0 +1,116 @@
+\documentclass{beamer}
+\usetheme{berlin}
+\usecolortheme{beaver}
+
+
+\title{Tables for 496T}
+\institute{The University of Arizona}
+\date{\today}
+
+\begin{document}
+
+\newcommand{\lean}[1]{\texttt{#1}}
+
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+\frame{\titlepage}
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%                     GroundWork
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+\begin{frame}
+\tiny
+\frametitle{Logic Type Table}
+    \begin{center}
+    \begin{tabular}{|c||c|c|c|}
+        \hline
+        Logic & Formation & Introduction & Elimination  \\
+        \hline
+        \hline
+        Implies & $\lean{Prop}\to\lean{Prop}\to\lean{Prop}$ 
+                & Lambda Abstraction
+                & Application \\
+        \hline
+        And & $\lean{Prop}\to\lean{Prop}\to\lean{Prop}$ 
+            & \lean{And.intro :}
+            & \lean{And.left : A}$\wedge\lean{B}\to\lean{A}$
+            \\
+        
+        $ $ & $ $ &  
+                $\lean{A}\to\lean{B}\to\lean{A}\wedge\lean{B}$ & 
+                \lean{And.right : A}$\wedge\lean{B}\to\lean{B}$ \\
+        \hline
+        Or & $\lean{Prop}\to\lean{Prop}\to\lean{Prop}$ 
+           & \lean{Or.inl : A}$\to\lean{A}\vee\lean{B}$
+           & \lean{Or.elim (C:Type) :} 
+           \\
+
+        $ $ & $ $ & \lean{Or.inr : B}$\to\lean{A}\vee\lean{B}$ 
+                  & (\lean{A}$\to$\lean{C}) $\to$ 
+                    (\lean{B}$\to$\lean{C}) $\to$ 
+                    (\lean{A}$\vee$\lean{B}$\to$\lean{C}) \\
+        \hline
+        \lean{For All} & $\Pi_{(\lean{A:Type})} (\lean{A}\to\lean{Prop})\to\lean{Prop}$
+                  & Lambda Abstraction 
+                  & Application 
+                  \\
+        \hline
+                  & 
+                  & \lean{Exists.intro : }
+                  & \lean{Exists.choose : ($\exists$a:A, P a)$\to$A} \\
+
+        \lean{Exists} & $\Pi_{(\lean{A:Type})} (\lean{A}\to\lean{Prop})\to\lean{Prop}$
+        & $\Pi_{(\lean{A:Type, P:A}\to\lean{Prop, a:A})}$ & \lean{Exists.choose\_spec :} \\
+        & & $\lean{(P a)}\to\lean{Exists A P}$ & 
+        $\Pi_{(h : \exists \lean{a:A, P a})}$\lean{P (Exists.choose h)}\\
+        \hline
+
+    
+    \end{tabular}
+    \end{center}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Tactics Table}
+    \begin{center}
+    \small
+    \begin{tabular}{|c||c|c|c|}
+        \hline
+        Logic & Formation & Introduction & Elimination \\
+        \hline
+        \hline
+        \lean{Implies}& \lean{A$\to$B}& \lean{intro}& \lean{apply h}\\
+        \hline
+        \lean{And}&     \lean{A$\wedge$B}&
+                        \lean{constructor}& 
+                        \lean{rcases h with }$\langle \lean{h}_1,\lean{h}_2\rangle$\\
+        \hline
+        \lean{Or}&      \lean{A$\vee$B}&
+                        \lean{left} or \lean{right}&
+                        \lean{rcases h with }$( \lean{h}_1|\lean{h}_2)$\\
+        \hline
+        \lean{Iff}&     \lean{A$\leftrightarrow$B}&
+                        \lean{constructor}&
+                        \lean{rw [h]} or \lean{rw [$\leftarrow$h]}\\
+        \hline
+        \lean{For All}& \lean{$\forall$ x, P x}&
+                        \lean{intro}&
+                        \lean{apply h}\\
+        \hline
+        \lean{Exists}&  \lean{$\exists$ x, P x}&
+                        \lean{use}&
+                        \lean{rcases h with }$\langle \lean{x},\lean{hx}\rangle$\\
+        \hline
+
+    \end{tabular}
+    \end{center}
+\end{frame}
+
+
+\end{document}
