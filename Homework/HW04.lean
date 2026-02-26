@@ -58,36 +58,41 @@ def negTwo : newZ := Quotient.mk congZSetoid (1, 3)
 def negTwo' : newZ := Quotient.mk congZSetoid (5, 7)
 
 -- Prove that 1/2 = 2/4
-@[autogradedProof 5]
+@[autogradedProof 6]
 theorem problem4 : negOne = negOne' := by
   sorry
   done
 
 -- Prove that 1/2 ≠ 1/3
-@[autogradedProof 5]
+@[autogradedProof 7]
 theorem problem5 : negOne ≠ negTwo := by
-  sorry
-  done
+   sorry
+   done
 
 
 -- Prove that the absolute value is well-defined on the quotient.
 def newAbs (p : ℕ × ℕ) : ℕ := if p.1 ≥ p.2 then p.1 - p.2 else p.2 - p.1
 
 -- To show this is well-defined, we need to show that if p and q are CongZ, then newAbs p = newAbs q.
-@[autogradedProof 5]
+@[autogradedProof 10]
 theorem problem6 : ∀ (a b : ℕ × ℕ), a ≈ b → newAbs a = newAbs b := by
   sorry
   done
 
+#check Quotient.sound -- Quotient.sound : a ≈ b → ⟦a⟧ = ⟦b⟧
+#check Quotient.lift -- Quotient.lift (f : α → β) : (∀ (a b : α), a ≈ b → f a = f b) → Quotient s → β
+-- Quotient.lift.{u, v} {α : Sort u} {β : Sort v} {s : Setoid α} (f : α → β) : (∀ (a b : α), a ≈ b → f a = f b) → Quotient s → β
+
 -- Then we can use `Quotient.liftOn` to define a function on `newZ` that computes the absolute value.
-def newZAbs (z : newZ) : ℕ := Quotient.liftOn z newAbs problem6
+def newZAbs (z : newZ) : ℕ := Quotient.lift newAbs problem6 z
 
-@[autogradedProof 10]
+@[autogradedProof 6]
 theorem problem7 : newZAbs negTwo = 2 := by
-  sorry
-  done
+    sorry
+    done
 
-@[autogradedProof 10]
+
+@[autogradedProof 6]
 theorem problem8 : newZAbs ⟦(1,0)⟧  = newZAbs negOne := by
-  sorry
-  done
+    sorry
+    done
