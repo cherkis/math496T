@@ -263,6 +263,7 @@ theorem intmod2_cases (q : IntMod 2) : q = ⟦0⟧ ∨ q = ⟦1⟧ := by
   . simp [h]
 
 -- Example: the canonical projection is surjective.
+-- NOTE: How to work with functions, their surjectivity and injectivity is the subject of the next lecture. So, here, we are jumping ahead with `Function.Surjective`.
 theorem mk_surjective (n : ℕ) :
     Function.Surjective (Quotient.mk (congModSetoid n)) := by
   intro q
