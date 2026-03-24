@@ -180,7 +180,7 @@ end NotationDemo
 -- section MySection
 -- variable (k : ℕ)
 -- local notation "S" => k * (k + 1) / 2
--- example : 2 * S = n * (n + 1) := by sorry
+-- example : 2 * S =  k * (k + 1) / 2 := by sorry
 -- end MySection
 
 
