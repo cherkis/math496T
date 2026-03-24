@@ -41,6 +41,8 @@ so we have two constructors, `Nat.zero : Nat` and `Nat.succ : Nat → Nat`.
 The other Peano axioms are encoded in the inductive type system.
 In particular, the axiom of induction is inherent to Lean via the `.rec`
 eliminator for inductive types.
+
+We will now define a new type, Nat', which copies exactly how Nat is defined.
 -/
 
 inductive Nat' where
@@ -48,6 +50,15 @@ inductive Nat' where
   | succ : Nat' → Nat'
 
 #check Nat'.rec
+
+example : ∀ n : Nat', n = Nat'.zero ∨ ∃ m : Nat', n = Nat'.succ m := by
+  intro n
+  induction' n with n ih
+  · left
+    rfl
+  · right
+    exists n
+
 
 -- # Addition
 
@@ -59,6 +70,91 @@ def Nat'.add : Nat' → Nat' → Nat'
   | a, zero => a
   | a, succ b => Nat'.succ (Nat'.add a b)
 
+
+-- # Subtraction
+
+-- First, we define predecession
+
+def Nat'.pred : Nat' → Nat'
+  | zero => zero
+  | succ n => n
+
+/-
+Already we have something unintuitive: Nat'.pred 0 = 0?
+Typically, we would think of zero as an element without a predecessor,
+so we might consider Nat.pred as function from ℕ \ {0} to ℕ.
+Rather than restricting Nat.pred to a subtype of Nat which excludes Nat.zero,
+Lean chooses to define Nat.pred 0 = 0, sacrificing some conceptual cohesion
+in order to preserve the typing of Nat.pred. The typing of Nat.pred becomes
+important when we define subtraction as repeated predecession.
+-/
+
+def Nat'.sub: Nat' → Nat' → Nat'
+  | a, zero => a
+  | a, succ b => Nat'.pred (Nat'.sub a b)
+
+
+def three := Nat'.succ $ Nat'.succ $ Nat'.succ $ Nat'.zero
+def one := Nat'.succ Nat'.zero
+
+#eval Nat'.sub three one
+#eval Nat'.sub one three
+
+/-
+Now we see the consequences of defining Nat.pred 0 = 0.
+
+If instead Nat.pred has restricted its domain to exclude 0,
+Nat.sub wouldn't be so easy to define, since at each step
+in the repeated predecession, we would have to supply a proof
+that the argument of Nat.pred is nonzero. To supply those proofs,
+`Nat.sub n` would need to restrict its domain to only
+those natural number less than or equal to n, but we don't yet
+even have a formalized notion of "less than or equal."
+
+As Nat.pred is in fact defined, we can easily define
+Nat.sub as repeated succession, and the only strange byproduct
+is that `3-5` is assigned a natural number value, namely 0.
+
+Consequently, over Nat, `(n - m) + m` does not always equal `n`,
+but `(n + m) - m = n` is provably true:
+-/
+
+example : ∀ n m : Nat', Nat'.sub (Nat'.add n m) m = n := by
+  intro n m
+  induction' m with m ih
+  · sorry -- the *unfold* tactic will take care of a lot
+  · have : ∀ a b : Nat', a.sub b = (a.succ).sub (b.succ) := by
+      intro a b
+      induction' b with b ih'
+      · sorry
+      · sorry
+    unfold Nat'.add
+    rw [←this]
+    exact ih
+
+#check Nat.one_ne_zero
+
+example : ∃ n m : Nat', Nat'.add (Nat'.sub n m) m ≠ n := by
+  exists Nat'.zero
+  exists Nat'.succ Nat'.zero
+  unfold Nat'.add Nat'.add
+  unfold Nat'.sub Nat'.sub
+  unfold Nat'.pred
+  dsimp only
+  nofun
+
+/-
+This is just a fun example of how Natural number subtraction
+doesn't behave the way one would think.
+-/
+def myDist : Nat → Nat → Nat := fun n => fun m => (n-m)+(m-n)
+
+#eval myDist 3 7
+#eval myDist 7 3
+
+
+-- # Division
+
 -- # Order
 
 #check Nat.le
@@ -66,177 +162,3 @@ def Nat'.add : Nat' → Nat' → Nat'
 inductive Nat'.le : Nat' → Nat' → Prop
   | refl {n} : Nat'.le n n
   | step {n} {m} : Nat'.le n m → Nat'.le n (succ m)
-
--- ## Integers
-
-/-
-There are two constructors for integers, `Int.ofNat : Nat → Int` and
-`Int.negSucc : Nat → Int`.
-`ofNat` reflects that we can think of any natural number as an integer, but
-these are not all the integers, so we need another constructor `negSucc` to
-catch all the negative integers. To avoid double-counting 0, `negSucc n`
-corresponds to `-(n+1)`.
-
-The usual negation is defined separately, `Int.negOfNat : Nat → Int`
-
--/
-
--- Lean uses inductive types again
-inductive Int' : Type where
-  | ofNat   : Nat → Int'
-  | negSucc : Nat → Int'
-
-def negThree : Int' := Int'.negSucc 2
-
-
-
--- # Addition
-
-def Int'.subNatNat (m n : Nat) : Int' :=
-  match (n - m : Nat) with
-  | 0          => Int'.ofNat (m - n)  -- m ≥ n
-  | Nat.succ k => Int'.negSucc k
-
-def Int'.add : Int' → Int' → Int'
-  | Int'.ofNat m  , Int'.ofNat n   => Int'.ofNat (m + n)
-  | Int'.ofNat m  , Int'.negSucc n => Int'.subNatNat m (Nat.succ n)
-  | Int'.negSucc m, Int'.ofNat n   => Int'.subNatNat n (Nat.succ m)
-  | Int'.negSucc m, Int'.negSucc n => Int'.negSucc (Nat.succ (m + n))
-
--- # Order
-
-inductive NonNeg : Int' → Prop where
-  | mk {n : Nat} : NonNeg (Int'.ofNat n)
-
--- ## Rationals
-/-
-The typical construction of ℚ is as a quotient of ℤ × (ℤ-{0})
-under the equivalence relation (a, b) ∼ (x, y) iff a·y = b·x .
-This construction is nice because it extends to a broader concept
-of "localization" in algebra.
-
-Our lean construction instead takes advantage of Euclid's algorithm
-to think of rational numbers as reduced fractions with a positive nonzero
-denominator. The benefit of this construction is that there is a singular
-pair (p, q) associated to each rational number rather than an equivalence
-class of pairs, so the computer can do concrete calculations.
--/
-
-
-#check Rat
-
--- # Addition
-
--- # Order
-
-
-theorem even_or_odd : ∀ n : Nat, (∃ k, n = 2*k) ∨ (∃ k, n = 2*k + 1) := by
-  intro n
-  induction' n with n ih
-  · left
-    exists 0
-  · rcases ih with (n_even | n_odd)
-    · right
-      obtain ⟨k, hk⟩ := n_even
-      exists k
-      rw [hk]
-    · left
-      obtain ⟨q, hq⟩ := n_odd
-      exists q + 1
-      rw [hq]
-      omega
-
-theorem zero_not_odd : ¬ (∃ k, 0 = 2*k + 1) := by
-  push_neg
-  intro k
-  apply Nat.zero_ne_add_one
-
-theorem not_even_and_odd : ∀ n : Nat, ¬((∃ k, n = 2*k) ∧ (∃ k, n = 2*k + 1)) := by
-  intro n
-  push_neg
-  rintro ⟨k, hk⟩
-  intro q
-  rw [hk]
-  intro h
-  clear n hk
-  rcases lt_or_ge q k with (qltk | kleq)
-  · apply zero_not_odd
-    exists k-(q+1)
-    rw [Nat.mul_sub, ←Nat.sub_add_comm, Nat.mul_add, h, add_assoc, Nat.sub_self]
-    apply Nat.mul_le_mul_left
-    exact qltk
-  · suffices : 2*q - 2 * k + 1 = 0
-    · apply zero_not_odd
-      exists q - k
-    rw [←Nat.sub_add_comm, h, Nat.sub_self]
-    apply Nat.mul_le_mul_left
-    exact kleq
-
-theorem eq_of_sum_eq : ∀ {n m : Nat}, n + n = m + m → n = m := by
-  intro n m
-  intro h
-  apply le_antisymm
-  · contrapose! h
-    apply ne_of_gt
-    exact add_lt_add h h
-  · contrapose! h
-    apply ne_of_lt
-    apply add_lt_add h h
-
-def zigzag : Int → Nat
-  | Int.ofNat n => n+n
-  | Int.negSucc n => n+n+1
-
-theorem zigzag_inj : Function.Injective zigzag := by
-  intro x
-  match x with
-  | Int.ofNat n =>
-    intro y
-    match y with
-    | Int.ofNat m =>
-      intro h
-      dsimp [zigzag] at h
-      congr
-      exact eq_of_sum_eq h
-    | Int.negSucc m =>
-      intro h
-      dsimp [zigzag] at h
-      exfalso
-      apply not_even_and_odd (n+n)
-      constructor
-      · exists n
-        rw [two_mul]
-      · exists m
-        rw [h, two_mul]
-  | Int.negSucc n =>
-    intro y
-    match y with
-    | Int.ofNat m =>
-      intro h
-      dsimp [zigzag] at h
-      exfalso
-      apply not_even_and_odd (n+n+1)
-      constructor
-      · exists m
-        rw [h, two_mul]
-      · exists n
-        rw [two_mul]
-    | Int.negSucc m =>
-      intro h
-      dsimp [zigzag] at h
-      congr
-      let claim := add_right_cancel h
-      exact eq_of_sum_eq claim
-
-
-
-theorem zigzag_surj : Function.Surjective zigzag := by
-  intro n
-  let claim := even_or_odd n
-  rcases claim with (⟨k, hk⟩|⟨k, hk⟩)
-  · exists Int.ofNat k
-    dsimp [zigzag]
-    rw [hk, two_mul]
-  · exists Int.negSucc k
-    dsimp [zigzag]
-    rw [hk, two_mul]
