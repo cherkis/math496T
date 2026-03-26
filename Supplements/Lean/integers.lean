@@ -9,7 +9,6 @@ these are not all the integers, so we need another constructor `negSucc` to
 catch all the negative integers. To avoid double-counting 0, `negSucc n`
 corresponds to `-(n+1)`.
 
-
 -/
 
 -- Lean uses inductive types again
@@ -20,8 +19,6 @@ inductive Int' : Type where
 def negThree : Int' := Int'.negSucc 2
 
 
--- # Nat cast to Int
-
 
 -- # Addition
 
@@ -31,20 +28,87 @@ def Int'.subNatNat (m n : Nat) : Int' :=
   | Nat.succ k => Int'.negSucc k
 
 def Int'.add : Int' → Int' → Int'
+    -- m+n=m+n
   | Int'.ofNat m  , Int'.ofNat n   => Int'.ofNat (m + n)
+    -- m + -(n + 1) = m - (n + 1)
   | Int'.ofNat m  , Int'.negSucc n => Int'.subNatNat m (Nat.succ n)
+    -- -(m + 1) + n = n - (m + 1)
   | Int'.negSucc m, Int'.ofNat n   => Int'.subNatNat n (Nat.succ m)
+    -- -(m + 1) + -(n + 1) = -(((m + n) + 1) + 1)
   | Int'.negSucc m, Int'.negSucc n => Int'.negSucc (Nat.succ (m + n))
 
--- # Integer Division
+-- # Subtraction
+
+def Int'.negOfNat : Nat → Int'
+  | 0      => Int'.ofNat 0
+  | Nat.succ m => Int'.negSucc m
+
+def Int'.neg : Int' → Int'
+  | Int'.ofNat n   => Int'.negOfNat n
+  | Int'.negSucc n => Int'.ofNat $ Nat.succ n
+
+def Int'.sub : Int' → Int' → Int' :=
+  fun a => fun b => Int'.add a $ Int'.neg b
+
+
+
+-- # Nat cast to Int
+
+/-
+Now we have a conflict between two types of subtraction,
+Nat.sub versus Int.sub. How should we resolve `3 - 5`?
+
+Unless specified explicitly or by type inference, Lean
+will interpret a string of digits a natural number.
+So `3 - 5 : Nat` and the term equals `0 : Nat`.
+How then do we specify if we DID mean to use Integer subtraction?
+
+We can use type inference! Lean will parse `3` as a term of type `Nat`,
+but if we demand that the symbol be considered another type,
+Lean will try to accommodate. Namely, `(3 : Int)` is a term of
+type `Int`. Although, if we try to force Lean to reinterpret a
+symbol as a term of a different type, Lean will throw an error
+in the event that no pre-declared means of type coercion exists.
+
+The other method is to be completely explicit, so we could
+write integer subtraction `3-5` as `Int.sub (Int.ofNat 3) (Int.ofNat 5)`
+-/
+
+
+#check 2
+#check (2 : Int)
+--#check (2 : List Nat)   --This throws an error
+#eval 3 - 5
+#eval (3 : Int) - 5
+#eval Int.sub (Int.ofNat 3) (Int.ofNat 5)
+
+
+example (n : Nat) : 0 - ((n : Int) - 2) = 2 - n := by
+  rw [Int.zero_sub, Int.neg_sub]
+
+#check Int.ofNat_inj
+
+example (a b : Nat) (h : (a : Int) = (b : Int)) : a = b := by
+  exact Int.ofNat_inj.mp h
+
 
 -- # Order
 
-inductive NonNeg : Int' → Prop where
+inductive Int'.NonNeg : Int' → Prop where
   | mk {n : Nat} : NonNeg (Int'.ofNat n)
 
+def Int'.le : Int' → Int' → Prop :=
+  fun a => fun b => Int'.NonNeg (Int'.sub b a)
 
-
+example : Int'.le (negThree) (Int'.ofNat 0) := by
+  unfold Int'.le
+  unfold negThree
+  unfold Int'.sub
+  unfold Int'.neg
+  dsimp
+  unfold Int'.add
+  dsimp
+  exact Int'.NonNeg.mk
 
 
 -- # Nat in Bijection with Int

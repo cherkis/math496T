@@ -132,7 +132,8 @@ example : ∀ n m : Nat', Nat'.sub (Nat'.add n m) m = n := by
     rw [←this]
     exact ih
 
-#check Nat.one_ne_zero
+#check Nat.add_sub_cancel
+#check Nat.sub_add_cancel
 
 example : ∃ n m : Nat', Nat'.add (Nat'.sub n m) m ≠ n := by
   exists Nat'.zero
@@ -152,8 +153,56 @@ def myDist : Nat → Nat → Nat := fun n => fun m => (n-m)+(m-n)
 #eval myDist 3 7
 #eval myDist 7 3
 
+-- # Multiplication
+-- It's just repeated addition, it behaves how you would expect
+
+def Nat'.mul : Nat' → Nat' → Nat'
+  | _, zero          => Nat'.zero
+  | a, Nat'.succ b => Nat'.add (Nat'.mul a b) a
 
 -- # Division
+
+/-
+Nat.div is implemented as an algorithm of repeated subtraction
+which keeps track of how many times the divisor has been subtracted from
+the original dividend. This implementation uses some actual functional
+programming in Lean which is beyond the scope of this document, so
+instead we will describe the properties of Nat.div.
+
+Functionally, Nat.div is easily thought of as "floor division,"
+where x / y is defined to be the greatest natural number which
+is less than the fraction (x:ℚ / y:ℚ). Also, Nat.div is a term of
+type Nat → Nat → Nat, so x / 0 is defined, and is always defined as 0.
+-/
+
+#eval 7 / 3
+#eval 22 / 7
+#eval 28 / 7
+#eval 190 / 0
+#eval 0 / 0
+
+/-
+As was the case with addition and subtraction, division-by-n is not a right
+inverse of multiplication-by-n. In fact, division isn't even always a
+left inverse of multiplication. In other words,
+`(a*b)/b=a` for b nonzero, but `(a/b)*b` does not always equal `a`.
+The condition for equality in the latter case is that `b` divides `a`,
+denoted `b ∣ a`, meaning `∃ k : Nat, a = b*k`.
+-/
+
+#check Nat.mul_div_cancel -- Notice the different conditions H!
+#check Nat.div_mul_cancel
+
+example (n : Nat) : ((n * (n+1)) / 2) * 2 = n*n + n := by
+  rw [Nat.div_mul_cancel _]
+  rw [mul_add, mul_one]
+  induction' n with n ih
+  · rw [zero_mul]
+    exists 0
+  · obtain ⟨k, hk⟩ := ih
+    exists k + n + 1
+    rw [mul_add, mul_add, mul_add, mul_add, ←hk]
+    ring
 
 -- # Order
 
