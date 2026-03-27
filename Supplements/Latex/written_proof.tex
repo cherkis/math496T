@@ -1,0 +1,301 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[all]{xy}
+  \SelectTips{cm}{10}
+  \everyxy={<2.5em,0em>:}
+\DeclareMathOperator{\Ima}{Im}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Pset}[1]{\mathcal{P}(#1)}
+\newcommand{\lean}[1]{\texttt{#1}}
+
+\newenvironment{ex}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\newenvironment{sol}[1][Solution]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1:}]}{\end{trivlist}}
+
+
+\begin{document}
+
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+\begin{ex}{1} [Problem 9 from HW01.lean]
+    Show that there exists a proposition $Q$ such that for any proposition $P$, we have that
+    $P\vee Q$ is true if and only if $P$ is true.
+
+\end{ex}
+
+
+\begin{proof}
+
+    I claim that the proposition \lean{False} satisfies this property. Let $P$ be an arbitrary
+    proposition. Consider the proposition $P\vee\lean{False}$. Now we will explore the truth table
+    verbally: if $P$ is true, then $P\vee\lean{False}$ is true; if $P$ is false, then
+    $P\vee\lean{False}$ is false. Therefore $P\vee\lean{False}$ is true only when $P$ is true,
+    so $P\vee\lean{False}$ implies $P$. Conversely, $P$ implies $P\vee\lean{False}$ by the definition
+    of the logical connective "or." At last, we have proven implication both ways, therefore
+    $P\vee\lean{False}$ is true if and only if $P$ is true. Since \lean{False} satisfies the desired
+    property for the arbitrarily chosen proposition $P$, then \lean{False} satisfies the general
+    property described of $Q$, so such a proposition $Q$ does exist.
+
+\end{proof}
+
+\begin{ex}{2} [Infinitely many primes]
+
+    Recall that a natural number $p$ is called "prime" if and only if the only natural numbers
+    dividing $p$ are $1$ and $p$ itself. 1 is not considered prime, since it has only 1 distinct
+    factor.
+    There are infinitely many natural numbers which are prime.
+
+\end{ex}
+
+\begin{proof}{} [Due to Euclid, with some tweaks]
+
+    We will prove the claim by way of contradiction. Suppose there are finitely many prime
+    numbers. Let $S$ denote that finite set of prime numbers. Now we construct a natural number
+    $N$, defined as the product of all the elements in $S$, i.e. $N:=\Pi_{p\in S}p$.
+    By construction, every prime number divides $N$. Since we know 1 has only itself as
+    a divisor, then every prime number does not divide 1. Let $p$ be a prime number.
+    Then $p\mid N$ and $p\nmid 1$, thus $p\nmid (N+1)$. Therefore $N+1$ has no prime divisors.
+    By theorem, the only natural number with no prime divisors is 1, so $N+1=1$. 1 is the smallest
+    natural number, so $N\ge1$, thus $N+1>1$. Then through substitution we have that $1>1$,
+    which is plainly a contradiction. Since we have arrived at a contradiction, our most recent
+    assumption---that there are finitely many primes---is false. Hence there are infinitely
+    many natural numbers which are prime.
+
+
+\end{proof}
+
+The next 10 problems (3-12) are about relations, using the following definitions:
+\begin{itemize}
+    \item A relation $R\subseteq S\times S$ on a set $S$ is reflexive iff
+        for every $x\in S$, we have that $(x,x)\in R$.
+    \item A relation $R\subseteq S\times S$ on a set $S$ is symmetric iff
+        for every $(x,y)\in S\times S$,
+            we have that $(x,y)\in R$ implies $(y,x)\in R$.
+    \item A relation $R\subseteq S\times S$ on a set $S$ is transitive iff
+        for every $(x,y,z)\in S\times S\times S$, we have that
+            $(x,y)\in R$ and $(y,z)\in R$ implies that $(x,z)\in R$.
+    \item A relation $R\subseteq S\times S$ on a set $S$ is called an
+        equivalence relation iff $R$ is reflexive, symmetric, and transitive.
+    \item A relation $R\subseteq S\times S$ on a set $S$ is \textbf{anti}symmetric
+        iff for every $(x,y)\in S\times S$, we have that
+            $(x,y)\in R$ and $(y,x)\in R$ implies that $x = y$.
+    \item A partition of a set $S$ is a collection $P$ of subsets of $S$ such that
+        distinct sets in $P$ are disjoint and the union of all sets in $P$ is $S$.
+
+\end{itemize}
+
+\begin{ex}{3} [Equiv defines a partition]
+    Let $S$ be a set and $R\subseteq S\times S$ an equivalence relation. For
+    each $x\in S$, define $[x] := \{y\in S \;|\; (x,y)\in R\}$.
+    Show that $P := \{[x]\subset S \;|\; x \in S \}$ is a partition of $S$.
+\end{ex}
+
+\begin{proof}
+    To establish that $P$ is partition, we need to show that $\bigcup_{C\in P}C = S$
+    and that $\forall C_1, C_2 \in P$, $C_1=C_2$ or  $C_1\cap C_2 = \emptyset$.
+
+    First, we will demonstrate that $\bigcup_{C\in P}C = S$. Since each set in $P$ is
+    a subset of $S$, we know that $\bigcup_{C\in P}C \subseteq S$. To show the other
+    inclusion, let $x\in S$ be arbitrarily chosen. Then $x\in[x]$ because $R$ is reflexive,
+    and $[x] \in P$ by definition. Hence $x\in\bigcup_{C\in P}C$, so
+    $\bigcup_{C\in P}C = S$.
+
+    Before we proceed, we will prove a lemma:
+    $
+        \forall a,b\in S,\; (a, b)\in R \iff [a]=[b]
+    $.
+    Let $a, b\in S$. \begin{itemize}
+        \item[$(\implies)$] Suppose $(a, b)\in R$. Let $x\in[a]$ and $y\in[b]$ be
+            arbitrarily chosen. Then $(a, x) \in R$ and $(b, y) \in R$.
+            By symmetry, $(b, a)\in R$. By transitivity, $(b, x)\in R$ and
+            $(a, y)\in R$. Therefore $x\in [b]$ and $y\in [a]$, so we can conclude
+            that $[a]\subseteq[b]$ and $[b]\subseteq[a]$, hence $[a]=[b]$. $\checkmark$
+        \item[$(\impliedby)$] Suppose now that $[a]=[b]$. By reflexivity, $b\in[b]$.
+            Then $b\in[a]$, so $(a, b)\in R$. $\checkmark$
+    \end{itemize}
+
+    Now we verify that distinct sets in $P$ are disjoint. Let $[x], [y]\in P$ such that
+    $[x]\neq [y]$. To show that $[x]\cap[y]$ is empty, we will suppose it has an element
+    and then reach a contradiction. So let $z\in[x]\cap[y]$. Then $(x,z)\in R$ and
+    $(y,z)\in R$. By symmetry, we know that $(z,y)\in R$, and by transitivity we
+    can conclude that $(x,y)\in R$. The above lemma implies that $[x]=[y]$, but this
+    contradicts our assumption that $[x]\neq[y]$, so $[x]\cap[y]$ must in fact be empty.
+
+    Therefore $P$ satifies both properties, so $P$ is a partition of $S$.
+
+
+\end{proof}
+
+
+\begin{ex}{4} [Subset]
+    Let $X$ be a nonempty set and let $\Pset{X}$ be the collection of all
+    subsets of $X$. Let $R := \{(S,T)\in\Pset{X}\times\Pset{X} \;|\; S \subseteq T\}$.
+    Show that $R$ is reflexive, antisymmetric, and transitive.
+\end{ex}
+
+\begin{proof} $ $
+\begin{itemize}
+    \item Let $S\in\Pset{X}$. Clearly $S\subseteq S$, so $(S, S)\in R$. Thus $R$ is reflexive.
+    \item Let $S, T\in\Pset{X}$ such that $(S, T)\in R$ and
+        $(T, S)\in R$. Then $S\subseteq T$ and $T\subseteq S$, so it follows that $S=T$. Thus $R$ is antisymmetric.
+    \item Let $S, T, U\in\Pset{X}$ such that $(S, T)\in R$ and
+        $(T, U)\in R$. Then $S\subseteq T$ and $T\subseteq U$, so
+        $\forall x \in S, x\in T$ and $\forall y \in T, y\in U$.
+        Therefore $\forall x \in S, x\in U$, so $S\subseteq U$, hence $(S, U)\in R$.
+        Thus $R$ is transitive.
+\end{itemize}
+\end{proof}
+
+
+\begin{ex}{5} [Sequences being eventually equal is an equivalence relation]
+    For two sequences of natural numbers $a, b : \N\to\N$, we say $a\sim b$ iff
+    $\exists N \in \N$ such that $\forall n \in N$, $n\ge N$ implies $a_n = b_n$.
+    Show that $\sim$ is an equivalence relation.
+\end{ex}
+
+\begin{proof} $ $
+    \begin{itemize}
+        \item Let $a:\N\to\N$ be an arbitrary sequence. Then $a\sim a$, since
+            every $n\in\N$ satisfies that $a_n=a_n$. Thus $\sim$ is reflexive.
+        \item Let $a, b:\N\to\N$ such that $a\sim b$. Let $N\in\N$ be chosen
+            such that for every natural number $n$ greater than $N$, we have
+            that $a_n=b_n$. Then necessarily $b_n=a_n$ because equality is symmetric.
+            Thus $\sim$ is symmetric.
+        \item Let $a, b, c:\N\to\N$ such that $a\sim b$ and $b\sim c$. Choose
+            $N_1, N_2\in\N$ such that $\forall n\ge N_1, a_n=b_n$ and
+            $\forall n\ge N_2, b_n=c_n$. Then define $N:=\max\{N_1,N_2\}$
+            and let $n\in\N$ such that $n\ge N$. For such $n$, we have that
+            $a_n=b_n$ and $b_n=c_n$, so $a_n=c_n$. Note that we have satisfied the exact
+            conditions to claim that $a\sim c$, thus $\sim$ is transitive.
+
+    \end{itemize}
+
+    Since $\sim$ is reflexive, symmetric, and transitive, we have that $\sim$ is an
+    equivalence relation.
+\end{proof}
+
+
+\begin{ex}{6} [+R+S-T]
+    There exists a relation which is reflexive and symmetric, but not transitive.
+\end{ex}
+
+\begin{proof}
+    Choose $S:=\Z$ and $R:=\{(a, b)\in\Z\times\Z \;:\; |a-b|<2\}$.
+
+
+    Clearly $R$ is reflexive, since $|a-a| = 0 < 2$ for any $a\in\Z$.
+    We see also that $R$ is symmetric because $|a-b|=|b-a|$ for all $a, b\in\Z$.
+    Now we need to show only that $R$ is not transitive. Namely,
+    we will demonstrate that $(1, 0)\in R$ and $(0, -1)\in R$, but $(1, -1)\notin R$.
+    Simply put, $|1-0|=1<2$ and $|0-(-1)| = 1 < 2$, but $|1-(-1)|=2\not<2$.
+    Thus $R$ is not transitive.
+\end{proof}
+
+
+\begin{ex}{7} [+R-S+T]
+    There exists a relation which is reflexive and transitive, but not symmetric.
+\end{ex}
+
+\begin{proof}
+    Let $X$ be a nonempty set and choose $S:=\Pset{X}$ and $R$ the subset relation
+    defined in problem 4.
+
+    We have already shown that $R$ as defined is reflexive and transitive.
+    Now consider $\emptyset\in S$ and $X\in S$. Since $X$ is nonempty, we have
+    that $\emptyset\subseteq X$ and $X\not\subseteq\emptyset$, so $R$ is not
+    symmetric.
+\end{proof}
+
+
+\begin{ex}{8} [+R-S-T]
+    There exists a relation which is reflexive, but neither symmetric nor transitive.
+\end{ex}
+
+\begin{proof}
+    Choose $S:=\Z$ and $R:=\{(a, b)\in\Z\times\Z \;|\; a-b<2\}$.
+
+    Clearly $R$ is reflexive, since $a-a=0<2$ for all $a\in Z$. To show that
+    $R$ violates symmetry and transitivity, consider $(2, 1), (2, 0), (1, 0),$ and $(0,2)$.
+
+    $R$ is not symmetric because $(0, 2)\in R$ but $(2, 0)\notin R$.
+
+    $R$ is not transitive because $(2, 1)\in R$ and $(1, 0)\in R$ but $(2, 0)\notin R$.
+\end{proof}
+
+
+\begin{ex}{9} [-R+S+T]
+    There exists a relation which is transitive and symmetric, but not reflexive.
+\end{ex}
+
+\begin{proof}
+    Choose $S:=\N$ and $R:=\emptyset$.
+
+    $R$ is clearly not reflexive, since $(1, 1)\notin R$.
+    However, it's vacuously true that $R$ is symmetric and transitive.
+
+    Let $a, b, c\in S$. If we suppose that $(a, b)\in R$, then any proposition
+    follows from the principle of explosion. Thus the criteria for both
+    symmetry and transitivity of $R$ are satisfied.
+
+\end{proof}
+
+
+\begin{ex}{10} [-R+S-T]
+    There exists a relation which is symmetric, but neither reflexive nor transitive.
+\end{ex}
+
+\begin{proof}
+    Choose $S:=\Z$ and $R:=\{(a,b)\in\Z\times\Z \;:\; |a-b| > 2\}$.
+
+    We see immediately that $R$ is symmetric because $|a-b|=|b-a|$ for all
+    $a, b\in\Z$. We can also see immediately that $R$ is not reflexive because
+    $|0-0|=0\not>2$, thus $(0, 0)\notin R$.
+
+    We have that $(0,5)\in R$ because $|0-5|=5>2$, and symmetry establishes that
+    $(5, 0)\in R$ as well. If $R$ were transitive, then $(0, 0)\in R$, but we've already
+    established that's false, so $R$ is not transitive.
+\end{proof}
+
+
+\begin{ex}{11} [-R-S+T]
+    There exists a relation which is transitive, but neither symmetric nor reflexive.
+\end{ex}
+
+\begin{proof}
+    Choose $S:=\Z$ and $R:=\{(a,b)\in\Z\times\Z\;|\;b-a>0\}$.
+
+    \begin{itemize}
+        \item Let $a, b, c\in S$ such that $(a, b)\in R$ and $(b, c)\in R$.
+            Then $b-a$ is positive and $c-b$ is positive. Therefore their sum,
+            $b-a+c-b=c-a$ is positive, hence $(a, c)\in R$. Thus $R$ is transitive.
+        \item Observe that $(0, 1)\in R$ because $1-0=1>0$ and $(1, 0)\notin R$
+            because $0-1=-1\not>0$. Thus $R$ is not symmetric.
+        \item Observe that $(0, 0)\notin R$ because $0-0=0\not>0$. Thus
+            $R$ is not reflexive.
+    \end{itemize}
+\end{proof}
+
+
+\begin{ex}{12} [-R-S-T]
+    There exists a relation which is not reflexive, not symmetric, and not transitive.
+\end{ex}
+
+\begin{proof}
+    Choose $S:=\N$ and $R:=\{(1, 2),(2, 3)\}$.
+    \begin{itemize}
+        \item $R$ is not reflexive because $(1, 1)\notin R$.
+        \item $R$ is not symmetric because $(1, 2)\in R$ but $(2, 1)\notin R$.
+        \item $R$ is not transitive because
+            $(1, 2)\in R$ and $(2, 3)\in R$ but $(1, 3)\notin R$.
+    \end{itemize}
+\end{proof}
+
+\end{document}
