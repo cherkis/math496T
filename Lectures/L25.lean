@@ -79,9 +79,7 @@ example : Monotone (fun n : ℕ => (n : ℝ) / ((n : ℝ) + 1)) := by
   intro n
   push_cast
   rw [div_le_div_iff₀]
-  nlinarith
-  positivity
-  positivity
+  nlinarith <;> positivity
 
 example : Antitone (fun n : ℕ => 1 + 1 / ((n : ℝ) + 1)) := by
   apply antitone_nat_of_succ_le
