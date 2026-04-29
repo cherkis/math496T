@@ -319,13 +319,11 @@ theorem evt_max {K : Set ℝ} (hK : IsSeqCompact K) (hKne : K.Nonempty)
 
 /- Warm-up -/
 
-example (a : ℝ) : IsSeqCompact ({a} : Set ℝ) := by
+example (K L : Set ℝ) (hK : IsSeqCompact K) (hL : IsSeqCompact L) :
+    IsSeqCompact (K ∩ L) := by
   sorry
 
-example (f : ℝ → ℝ) (c : ℝ) :
-    ContinuousAt f c ↔
-      ∀ a : ℕ → ℝ, ConvergesTo a c →
-        ConvergesTo (fun n => f (a n)) (f c) := by
+example : IsSeqCompact (∅ : Set ℝ) := by
   sorry
 
 /- Core -/
